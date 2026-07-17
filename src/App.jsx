@@ -324,9 +324,22 @@ function App() {
               </div>
             </div>
             
-            {/* Giant Branding Display Text */}
-            <div className="footer-giant-text">
-              CLOZFLOW
+            {/* Giant Branding Display Text (SVG for 100% responsiveness without cutoffs) */}
+            <div className="footer-giant-wrapper">
+              <svg className="footer-giant-svg" viewBox="0 0 580 90">
+                <text
+                  x="50%"
+                  y="75"
+                  textAnchor="middle"
+                  fill="#121212"
+                  fontWeight="900"
+                  letterSpacing="-0.04em"
+                  fontSize="82"
+                  fontFamily="Plus Jakarta Sans, sans-serif"
+                >
+                  CLOZFLOW<tspan fill="#8E74E2" fontSize="64" dy="-2">●</tspan>
+                </text>
+              </svg>
             </div>
           </div>
         </footer>

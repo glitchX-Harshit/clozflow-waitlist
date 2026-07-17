@@ -1846,22 +1846,25 @@ body {
   color: var(--text-main);
 }
 
-/* Giant display branding */
-.footer-giant-text {
-  font-size: clamp(1.8rem, 14vw, 12rem);
-  font-weight: 800;
-  text-align: center;
-  letter-spacing: -0.04em;
-  line-height: 0.8;
-  margin-top: 4rem;
-  user-select: none;
+/* Giant display branding (Responsive SVG) */
+.footer-giant-wrapper {
+  width: 100%;
+  max-width: 1200px;
+  margin: 4rem auto 0;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  clip-path: inset(0 0 20% 0); /* Cropped bottom 20% */
+}
+
+.footer-giant-svg {
+  width: 100%;
+  height: auto;
+  max-height: 220px;
+  display: block;
   pointer-events: none;
-  font-family: var(--font-sans);
-  background: linear-gradient(45deg, #C2DCFB 0%, #8E74E2 35%, #E23E6E 70%, #4856E3 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  opacity: 0.9;
+  user-select: none;
+  opacity: 0.95;
 }
 
 /* Responsive Footer */
@@ -1944,19 +1947,9 @@ body {
     justify-content: center;
     width: 100%;
   }
-  .footer-giant-text {
-    font-size: 14.2vw;
-    letter-spacing: -0.03em;
-    line-height: 0.8;
-    margin-top: 2.5rem;
-    width: 100vw;
-    position: relative;
-    left: 50%;
-    margin-left: -50vw;
-    margin-right: -50vw;
-    clip-path: inset(0 0 20% 0);
-    margin-bottom: -1.5rem;
-    text-align: center;
+  .footer-giant-wrapper {
+    margin-top: 2rem;
+    margin-bottom: -1rem;
   }
 }
 
