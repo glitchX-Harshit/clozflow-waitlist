@@ -10,6 +10,8 @@ function App() {
   const [submitted, setSubmitted] = useState(false);
   const [activeFaq, setActiveFaq] = useState(null);
   const [waitlistCount, setWaitlistCount] = useState(14282);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
 
   // Organic waitlist count simulation ticks
   useEffect(() => {
@@ -19,15 +21,48 @@ function App() {
     return () => clearInterval(timer);
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (email) {
-      setSubmitted(true);
-      // Simulate API registration delay
-      setTimeout(() => {
-        setSubmitted(false);
+    if (!email) return;
+
+    setIsSubmitting(true);
+    setErrorMsg('');
+
+    const scriptUrl = import.meta.env.VITE_GOOGLE_SHEETS_URL;
+    
+    if (!scriptUrl) {
+      setErrorMsg("Google Sheets URL not configured in .env. Please configure VITE_GOOGLE_SHEETS_URL.");
+      setIsSubmitting(false);
+      return;
+    }
+
+    try {
+      const response = await fetch(scriptUrl, {
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'text/plain;charset=utf-8',
+        },
+        body: JSON.stringify({ email: email }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      
+      if (result.status === 'success') {
+        setSubmitted(true);
         setEmail('');
-      }, 7000);
+      } else {
+        throw new Error(result.message || 'Failed to submit email. Please try again.');
+      }
+    } catch (error) {
+      console.error('Waitlist submission error:', error);
+      setErrorMsg(error.message || 'Connection failed. Please check your network or try again.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -121,19 +156,31 @@ function App() {
                   <span>Request received. Keep an eye on your inbox.</span>
                 </div>
               ) : (
-                <form className="waitlist-form" onSubmit={handleSubmit}>
-                  <input 
-                    type="email" 
-                    placeholder="Enter your work email" 
-                    className="waitlist-input"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                  />
-                  <button type="submit" className="waitlist-btn">
-                    Request Invite <ArrowRight size={16} />
-                  </button>
-                </form>
+                <>
+                  <form className="waitlist-form" onSubmit={handleSubmit}>
+                    <input 
+                      type="email" 
+                      placeholder="Enter your work email" 
+                      className="waitlist-input"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      disabled={isSubmitting}
+                      required
+                    />
+                    <button type="submit" className="waitlist-btn" disabled={isSubmitting}>
+                      {isSubmitting ? (
+                        <span>Registering...</span>
+                      ) : (
+                        <>Request Invite <ArrowRight size={16} /></>
+                      )}
+                    </button>
+                  </form>
+                  {errorMsg && (
+                    <div className="waitlist-error">
+                      <span>{errorMsg}</span>
+                    </div>
+                  )}
+                </>
               )}
 
               {/* Simulated Live Ticker */}
