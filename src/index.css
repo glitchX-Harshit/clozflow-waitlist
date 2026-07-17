@@ -145,18 +145,20 @@ body {
 }
 
 .contact-btn {
-  background: rgba(0, 0, 0, 0.02);
-  border: 1px solid var(--border-color);
-  padding: 0.5rem 1.2rem;
+  background: var(--text-main);
+  border: 1px solid var(--text-main);
+  padding: 0.5rem 1.4rem;
   border-radius: 2rem;
-  color: var(--text-main);
-  transition: all 0.3s ease;
+  color: var(--bg-color);
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .contact-btn:hover {
-  background: var(--text-main);
-  color: var(--bg-color);
-  border-color: var(--text-main);
+  background: #222222;
+  border-color: #222222;
+  transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
@@ -299,25 +301,41 @@ body {
 }
 
 .waitlist-btn {
-  padding: 0.8rem 1.8rem;
+  padding: 0.8rem 2rem;
   border-radius: 3rem;
   border: none;
-  background: var(--text-main);
-  color: var(--bg-color);
-  font-weight: 600;
+  background: linear-gradient(45deg, #C2DCFB, #8E74E2, #E23E6E, #4856E3, #C2DCFB);
+  background-size: 200% 200%;
+  animation: aura-gradient-shift 6s ease infinite;
+  color: #ffffff;
+  font-weight: 700;
   font-size: 0.9rem;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   font-family: inherit;
   display: flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.45rem;
+  box-shadow: 0 4px 15px rgba(142, 116, 226, 0.25);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
 }
 
 .waitlist-btn:hover {
-  background: #222222;
-  transform: translateY(-1px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(142, 116, 226, 0.4);
+  filter: brightness(1.05);
+}
+
+@keyframes aura-gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .waitlist-btn:active {
@@ -1247,6 +1265,7 @@ body {
 
 .col-right {
   align-items: flex-end;
+  gap: 1.6rem;
 }
 
 /* Canvas glassmorphic node styling */

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Terminal, Database, Sparkles, Cpu, Zap, Bell, ListTodo } from 'lucide-react';
+import { Terminal, Database, Sparkles, Cpu, Zap, Bell, ListTodo, PhoneCall } from 'lucide-react';
 
 function SaaSPreview() {
   const previewRef = useRef(null);
@@ -240,13 +240,15 @@ function SaaSPreview() {
                 >
                   
                   {/* Connection lines */}
+                  {/* Connection lines */}
                   <svg className="connector-svg translate-z-15" viewBox="0 0 500 300">
                     <g stroke="#e2e2e7" strokeWidth="1.5" fill="none">
                       <path d="M 120 110 L 250 150" />
                       <path d="M 120 190 L 250 150" />
-                      <path d="M 250 150 L 380 90" />
-                      <path d="M 250 150 L 380 150" />
-                      <path d="M 250 150 L 380 210" />
+                      <path d="M 250 150 L 380 60" />
+                      <path d="M 250 150 L 380 120" />
+                      <path d="M 250 150 L 380 180" />
+                      <path d="M 250 150 L 380 240" />
                     </g>
 
                     {packetFlowing && (
@@ -274,21 +276,28 @@ function SaaSPreview() {
                           <animateMotion 
                             dur="1.2s" 
                             repeatCount="indefinite" 
-                            path="M 250 150 L 380 90" 
+                            path="M 250 150 L 380 60" 
                           />
                         </circle>
                         <circle r="4" className="moving-packet">
                           <animateMotion 
                             dur="1.2s" 
                             repeatCount="indefinite" 
-                            path="M 250 150 L 380 150" 
+                            path="M 250 150 L 380 120" 
                           />
                         </circle>
                         <circle r="4" className="moving-packet">
                           <animateMotion 
                             dur="1.2s" 
                             repeatCount="indefinite" 
-                            path="M 250 150 L 380 210" 
+                            path="M 250 150 L 380 180" 
+                          />
+                        </circle>
+                        <circle r="4" className="moving-packet">
+                          <animateMotion 
+                            dur="1.2s" 
+                            repeatCount="indefinite" 
+                            path="M 250 150 L 380 240" 
                           />
                         </circle>
                       </g>
@@ -299,11 +308,11 @@ function SaaSPreview() {
                   <div className="canvas-nodes-col col-left translate-z-35">
                     <div className={`canvas-node ${activeNode === 'stripe' ? 'active-stripe' : ''}`}>
                       <div className="node-icon"><Zap size={14} /></div>
-                      <span className="node-label">New Lead Found</span>
+                      <span className="node-label">High-Ticket Client</span>
                     </div>
                     <div className="canvas-node">
                       <div className="node-icon"><Database size={14} /></div>
-                      <span className="node-label">Inbound Contact</span>
+                      <span className="node-label">Client Signal</span>
                     </div>
                   </div>
 
@@ -312,7 +321,7 @@ function SaaSPreview() {
                     <div className={`canvas-node-core ${activeNode === 'engine' ? 'active-core' : ''}`}>
                       <div className="core-glow" />
                       <Cpu size={24} className="core-icon-spin" />
-                      <span className="core-label">Clozflow</span>
+                      <span className="core-label">AI Dealmaker</span>
                     </div>
                   </div>
 
@@ -320,15 +329,19 @@ function SaaSPreview() {
                   <div className="canvas-nodes-col col-right translate-z-35">
                     <div className={`canvas-node ${activeNode === 'outputs' ? 'active-out' : ''}`}>
                       <div className="node-icon"><Bell size={14} /></div>
-                      <span className="node-label">Personalized Outreach</span>
+                      <span className="node-label">Tailored Pitch</span>
                     </div>
                     <div className={`canvas-node ${activeNode === 'outputs' ? 'active-out' : ''}`}>
                       <div className="node-icon"><ListTodo size={14} /></div>
-                      <span className="node-label">CRM Auto-Update</span>
+                      <span className="node-label">Pipeline Auto-Log</span>
+                    </div>
+                    <div className={`canvas-node ${activeNode === 'outputs' ? 'active-out' : ''}`}>
+                      <div className="node-icon"><PhoneCall size={14} /></div>
+                      <span className="node-label">Live Call Copilot</span>
                     </div>
                     <div className="canvas-node">
                       <div className="node-icon"><Sparkles size={14} /></div>
-                      <span className="node-label">AI Conversation Reply</span>
+                      <span className="node-label">Conversion Secured</span>
                     </div>
                   </div>
 

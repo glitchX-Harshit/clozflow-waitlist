@@ -189,9 +189,9 @@ function BentoGrid() {
       preview: PlatformPreview
     },
     {
-      title: "Real-Time Sales Copilot",
-      subtitle: "Conversational intelligence",
-      description: "Get guided suggestions, reply recommendations, and live assistance during sales calls and chat conversations so you can close more deals.",
+      title: "Real-Time Meeting Copilot",
+      subtitle: "Live Call Closer Assist",
+      description: "Just like a viral interview assistant, it listens to your live cold calls and Zoom meetings in real-time, feeding you instant objection-handling suggestions with ultra-low latency.",
       icon: Sparkles,
       preview: CopilotPreview
     },

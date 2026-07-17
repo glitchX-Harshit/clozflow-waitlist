@@ -132,13 +132,13 @@ function App() {
             
             {/* Luxury Editorial Title */}
             <motion.h1 variants={fadeUpVariant} className="hero-title">
-              Your AI employee for the <br />
-              <span>entire sales process.</span>
+              Ditch the cold calls. <br />
+              <span>Let AI sign your clients.</span>
             </motion.h1>
             
             {/* Descriptive Subtitle */}
             <motion.p variants={fadeUpVariant} className="hero-subtitle">
-              Clozflow is an AI Sales Operating System that helps you find clients, start conversations, win deals with a live AI assistant, and automate repetitive sales work—so you can focus on closing, not chasing.
+              Deploy custom AI agents that find your ideal clients, write pitches they actually reply to, and close deals for you—even while you're sleeping, traveling, or binge-watching. Plus, get instant, ultra-low latency objection-handling guidance during live meetings and cold calls. Welcome to the era of sales on absolute autopilot.
             </motion.p>
             
             {/* Elegant Form Form */}
