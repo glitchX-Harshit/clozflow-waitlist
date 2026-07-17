@@ -1848,7 +1848,7 @@ body {
 
 /* Giant display branding */
 .footer-giant-text {
-  font-size: clamp(4rem, 15vw, 12rem);
+  font-size: clamp(1.8rem, 14vw, 12rem);
   font-weight: 800;
   text-align: center;
   letter-spacing: -0.04em;
@@ -1857,11 +1857,11 @@ body {
   user-select: none;
   pointer-events: none;
   font-family: var(--font-sans);
-  background: linear-gradient(4deg, #C2DCFB 0%, #8E74E2 35%, #E23E6E 70%, #4856E3 100%);
+  background: linear-gradient(45deg, #C2DCFB 0%, #8E74E2 35%, #E23E6E 70%, #4856E3 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  opacity: 1;
+  opacity: 0.9;
 }
 
 /* Responsive Footer */
