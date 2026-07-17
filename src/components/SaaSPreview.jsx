@@ -12,7 +12,7 @@ function SaaSPreview() {
   const [packetFlowing, setPacketFlowing] = useState(false);
   const [agentCursor, setAgentCursor] = useState({ x: 120, y: 150, opacity: 1, label: 'Clozflow Agent' });
   const [terminalLogs, setTerminalLogs] = useState([
-    { time: '03:22:10', type: 'info', text: 'Clozflow Engine initialized. Awaiting triggers...' }
+    { time: '03:22:10', type: 'info', text: 'Clozflow Sales OS initialized. Listening for leads...' }
   ]);
 
   // --- Resize Observer Scaler for Mobile Viewports ---
@@ -55,9 +55,9 @@ function SaaSPreview() {
       setAgentCursor(prev => ({ ...prev, x: 80, y: 110, opacity: 1 }));
       
       timeoutId = setTimeout(() => {
-        // Step 2: Stripe node lights up
+        // Step 2: Lead node lights up
         setActiveNode('stripe');
-        addLog('info', 'Webhook: Stripe checkout completed ($599/mo)');
+        addLog('info', 'Inbound: New high-intent lead found (Founder at Clozflow)');
         
         timeoutId = setTimeout(() => {
           // Step 3: Trigger connector flow
@@ -66,23 +66,23 @@ function SaaSPreview() {
           
           timeoutId = setTimeout(() => {
             setActiveNode('engine');
-            addLog('ai', 'AI compiler hot-patching operational pipeline...');
+            addLog('ai', 'AI Agent: Researching prospect & writing personalized outreach...');
             
             timeoutId = setTimeout(() => {
               // Step 4: Dispatch data packets to output branches
               setPacketFlowing(false);
               setActiveNode('outputs');
-              addLog('success', 'Logic compiled and dispatched to sync outputs.');
+              addLog('success', 'AI Outreach compiled and matched to custom CRM variables.');
               
               timeoutId = setTimeout(() => {
-                // Move cursor to Slack
+                // Move cursor to Email
                 setAgentCursor(prev => ({ ...prev, x: 380, y: 80 }));
-                addLog('success', 'Slack webhook delivered (latency 12ms)');
+                addLog('success', 'Outreach email dispatched automatically (delivery latency 14ms)');
                 
                 timeoutId = setTimeout(() => {
-                  // Move cursor to Linear
+                  // Move cursor to CRM
                   setAgentCursor(prev => ({ ...prev, x: 380, y: 160 }));
-                  addLog('success', 'Linear ticket created: #OPS-412 (latency 18ms)');
+                  addLog('success', 'Clozflow CRM updated: Lead stage set to "Outreach Sent"');
 
                   timeoutId = setTimeout(() => {
                     // Reset positions
@@ -299,11 +299,11 @@ function SaaSPreview() {
                   <div className="canvas-nodes-col col-left translate-z-35">
                     <div className={`canvas-node ${activeNode === 'stripe' ? 'active-stripe' : ''}`}>
                       <div className="node-icon"><Zap size={14} /></div>
-                      <span className="node-label">Stripe Checkout</span>
+                      <span className="node-label">New Lead Found</span>
                     </div>
                     <div className="canvas-node">
                       <div className="node-icon"><Database size={14} /></div>
-                      <span className="node-label">SQL Mutation</span>
+                      <span className="node-label">Inbound Contact</span>
                     </div>
                   </div>
 
@@ -312,7 +312,7 @@ function SaaSPreview() {
                     <div className={`canvas-node-core ${activeNode === 'engine' ? 'active-core' : ''}`}>
                       <div className="core-glow" />
                       <Cpu size={24} className="core-icon-spin" />
-                      <span className="core-label">Clozflow VM</span>
+                      <span className="core-label">Clozflow Sales OS</span>
                     </div>
                   </div>
 
@@ -320,15 +320,15 @@ function SaaSPreview() {
                   <div className="canvas-nodes-col col-right translate-z-35">
                     <div className={`canvas-node ${activeNode === 'outputs' ? 'active-out' : ''}`}>
                       <div className="node-icon"><Bell size={14} /></div>
-                      <span className="node-label">Slack Webhook</span>
+                      <span className="node-label">Personalized Outreach</span>
                     </div>
                     <div className={`canvas-node ${activeNode === 'outputs' ? 'active-out' : ''}`}>
                       <div className="node-icon"><ListTodo size={14} /></div>
-                      <span className="node-label">Linear Ticket</span>
+                      <span className="node-label">CRM Auto-Update</span>
                     </div>
                     <div className="canvas-node">
                       <div className="node-icon"><Sparkles size={14} /></div>
-                      <span className="node-label">AI Report Draft</span>
+                      <span className="node-label">AI Conversation Reply</span>
                     </div>
                   </div>
 

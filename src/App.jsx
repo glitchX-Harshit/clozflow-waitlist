@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, Sparkles, Check, ChevronDown } from 'lucide-react';
+import { ArrowRight, Sparkles, Check } from 'lucide-react';
 import ThreeCanvas from './components/ThreeCanvas';
 import BentoGrid from './components/BentoGrid';
 import SaaSPreview from './components/SaaSPreview';
@@ -76,19 +76,19 @@ function App() {
   const faqs = [
     {
       q: "What is Clozflow?",
-      a: "Clozflow is an ultra-low-latency operations engine designed to unify system databases, sync APIs, and execute secure AI workflows in real-time."
+      a: "Clozflow is an AI platform that helps businesses and freelancers get more clients. It finds potential customers, researches them, writes personalized outreach messages, helps you reply during sales conversations with a real-time AI assistant, and reminds you what to do next so you can close more deals."
     },
     {
       q: "When will I receive access?",
-      a: "We are onboarding startups in weekly cohorts. Early invite requests are prioritized to join our private beta starting this quarter."
+      a: "We are onboarding businesses and freelancers in weekly cohorts. Early invite requests are prioritized to join our private beta starting this quarter."
     },
     {
-      q: "Does it integrate with our existing stack?",
-      a: "Yes. Clozflow connects bi-directionally with Slack, Stripe, GitHub, Linear, and database backends with instantaneous synchronizations."
+      q: "Do I still need other tools for outreach or CRM?",
+      a: "No. Instead of using multiple tools for lead generation, outreach, CRM, and sales assistance, Clozflow brings everything together in one platform."
     },
     {
-      q: "How is database isolation handled?",
-      a: "Clozflow is built on a zero-trust sandbox architecture. Your databases are isolated at the virtualization layer with end-to-end encryption."
+      q: "Will it work autonomously?",
+      a: "Yes. In the future, you'll also be able to deploy an AI Sales Agent that works on your behalf—finding qualified leads, starting conversations, following up, and delivering a daily summary of interested prospects directly to you."
     }
   ];
 
@@ -125,21 +125,20 @@ function App() {
             }}
             className="hero-content"
           >
-            {/* Pulsing Badge */}
+            {/* Minimal Badge */}
             <motion.div variants={fadeUpVariant} className="badge">
-              <div className="badge-pulse"></div>
-              <span>Clozflow 2.0 Early Access</span>
+              <span>Clozflow Early Access</span>
             </motion.div>
             
             {/* Luxury Editorial Title */}
             <motion.h1 variants={fadeUpVariant} className="hero-title">
-              Workflows that think, build, <br />
-              and <span>repair themselves.</span>
+              Your AI employee for the <br />
+              <span>entire sales process.</span>
             </motion.h1>
             
             {/* Descriptive Subtitle */}
             <motion.p variants={fadeUpVariant} className="hero-subtitle">
-              Clozflow translates natural language into ultra-low latency operational pipelines. No API maintenance. No servers. Just pure velocity.
+              Clozflow is an AI Sales Operating System that helps you find clients, start conversations, win deals with a live AI assistant, and automate repetitive sales work—so you can focus on closing, not chasing.
             </motion.p>
             
             {/* Elegant Form Form */}
@@ -179,7 +178,6 @@ function App() {
 
               {/* Simulated Live Ticker */}
               <div className="waitlist-ticker">
-                <span className="ticker-pulse"></span>
                 <span>Join {waitlistCount.toLocaleString()} founders. 12 spots left in Beta Group A.</span>
               </div>
             </motion.div>
@@ -203,53 +201,133 @@ function App() {
         {/* Bento-Style Capabilities Showcase */}
         <BentoGrid />
 
-        {/* FAQ Accordion Section */}
-        <section className="faq-section">
-          <div className="section-header">
-            <div className="section-badge"><span>Inquiries</span></div>
-            <h2 className="section-title cormorant-header">Frequently <i>asked questions</i>.</h2>
-          </div>
-          
-          <div className="faq-list">
-            {faqs.map((faq, i) => (
-              <div className="faq-item" key={i}>
-                <button className="faq-question" onClick={() => toggleFaq(i)}>
-                  <span className="cormorant-title">{faq.q}</span>
-                  <motion.div
-                    animate={{ rotate: activeFaq === i ? 180 : 0 }}
-                    transition={{ duration: 0.3 }}
-                    style={{ display: 'flex', alignItems: 'center' }}
-                  >
-                    <ChevronDown size={18} />
-                  </motion.div>
-                </button>
-                <AnimatePresence initial={false}>
-                  {activeFaq === i && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                      className="faq-answer"
-                    >
-                      <div className="faq-answer-inner">
-                        <p>{faq.a}</p>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            ))}
+        {/* FAQ Accordion Section (Awwwards Two-Column Redesign) */}
+        <section className="faq-section" id="faq">
+          <div className="faq-container">
+            {/* Left side: Editorial Heading */}
+            <div className="faq-heading-col">
+              <div className="section-badge"><span>Inquiries</span></div>
+              <h2 className="faq-main-title cormorant-header">Frequently <br /><i>asked questions</i>.</h2>
+              <p className="faq-side-desc">
+                Can't find what you are looking for? Reach out to our founding team directly for partnership or beta questions.
+              </p>
+              <a href="mailto:hello@clozflow.com" className="faq-contact-link">
+                Ask a custom question <ArrowRight size={14} />
+              </a>
+            </div>
+            
+            {/* Right side: Accordion list with numbers */}
+            <div className="faq-list-col">
+              {faqs.map((faq, i) => (
+                <div className={`faq-item-premium ${activeFaq === i ? 'active' : ''}`} key={i}>
+                  <button className="faq-question-premium" onClick={() => toggleFaq(i)}>
+                    <div className="faq-question-content">
+                      <span className="faq-number">0{i + 1}</span>
+                      <span className="faq-q-text">{faq.q}</span>
+                    </div>
+                    <span className="faq-toggle-icon">
+                      <span className="faq-icon-line horizontal"></span>
+                      <span className="faq-icon-line vertical"></span>
+                    </span>
+                  </button>
+                  <AnimatePresence initial={false}>
+                    {activeFaq === i && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                        className="faq-answer-premium"
+                      >
+                        <div className="faq-answer-inner-premium">
+                          <p>{faq.a}</p>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
 
-        {/* Minimal Footer */}
-        <footer>
-          <p>&copy; {new Date().getFullYear()} Clozflow Technologies Inc. All rights reserved.</p>
-          <div className="footer-links">
-            <a href="#" className="footer-link">Privacy</a>
-            <a href="#" className="footer-link">Security</a>
-            <a href="#" className="footer-link">Terms</a>
+        {/* Awwwards Winning Style Footer */}
+        <footer className="luxury-footer">
+          <div className="footer-container">
+            {/* Top Row: Call to Action */}
+            <div className="footer-cta">
+              <h2 className="cormorant-header">Let's <i>automate</i> your growth.</h2>
+              <a href="#" className="footer-cta-btn" onClick={(e) => {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}>
+                Secure Early Access <ArrowRight size={16} />
+              </a>
+            </div>
+
+            <hr className="footer-divider" />
+
+            {/* Mid Row: Info Grid */}
+            <div className="footer-grid">
+              <div className="footer-col brand-col">
+                <a href="#" className="footer-logo">
+                  <Sparkles size={18} strokeWidth={1.8} />
+                  <span>Clozflow</span>
+                </a>
+                <p className="brand-desc">
+                  The AI Sales Operating System that automates lead generation, writes warm outreach, and closes prospects.
+                </p>
+                <div className="system-status">
+                  <span className="status-dot"></span>
+                  <span>All Systems Operational</span>
+                </div>
+              </div>
+
+              <div className="footer-col">
+                <h4>Product</h4>
+                <ul>
+                  <li><a href="#" onClick={(e) => { e.preventDefault(); document.querySelector('.bento-section')?.scrollIntoView({ behavior: 'smooth' }); }}>Capabilities</a></li>
+                  <li><a href="#" onClick={(e) => { e.preventDefault(); document.querySelector('.preview-section')?.scrollIntoView({ behavior: 'smooth' }); }}>Sales OS</a></li>
+                  <li><a href="#" onClick={(e) => { e.preventDefault(); document.querySelector('.faq-section')?.scrollIntoView({ behavior: 'smooth' }); }}>Inquiries</a></li>
+                  <li><a href="#" className="glow-link" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>Join Waitlist</a></li>
+                </ul>
+              </div>
+
+              <div className="footer-col">
+                <h4>Legal</h4>
+                <ul>
+                  <li><a href="#">Privacy Policy</a></li>
+                  <li><a href="#">Terms of Service</a></li>
+                  <li><a href="#">Security Protocols</a></li>
+                </ul>
+              </div>
+
+              <div className="footer-col contact-col">
+                <h4>Contact</h4>
+                <ul>
+                  <li><a href="mailto:hello@clozflow.com">hello@clozflow.com</a></li>
+                  <li><span className="local-time-label">Global Office</span></li>
+                  <li><span className="time-display">UTC/GMT +5:30</span></li>
+                </ul>
+              </div>
+            </div>
+
+            <hr className="footer-divider" />
+
+            {/* Bottom Row: Copyright & Big Branding */}
+            <div className="footer-bottom">
+              <p>&copy; {new Date().getFullYear()} Clozflow Technologies Inc. Designed for premium velocity.</p>
+              <div className="footer-socials">
+                <a href="#" className="social-link">Twitter</a>
+                <a href="#" className="social-link">LinkedIn</a>
+                <a href="#" className="social-link">GitHub</a>
+              </div>
+            </div>
+            
+            {/* Giant Branding Display Text */}
+            <div className="footer-giant-text">
+              CLOZFLOW
+            </div>
           </div>
         </footer>
 
