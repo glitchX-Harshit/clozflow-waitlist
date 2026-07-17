@@ -7,11 +7,21 @@ function ThreeCanvas() {
   useEffect(() => {
     if (!containerRef.current) return;
 
+    const currentContainer = containerRef.current;
+
+    // --- Dynamic Mobile Optimization ---
+    // Reduce particle count on mobile screens to save massive CPU/GPU battery
+    const isMobile = window.innerWidth < 768;
+    const AMOUNTX = isMobile ? 35 : 55;
+    const AMOUNTY = isMobile ? 35 : 55;
+    const SEPARATION = isMobile ? 4.0 : 2.6; // Scale separation slightly to keep visual width
+    const numParticles = AMOUNTX * AMOUNTY;
+
     // --- Scene Setup ---
     const scene = new THREE.Scene();
     
-    // Elegant white fog to blend particles smoothly into the background
-    scene.fog = new THREE.FogExp2(0xffffff, 0.012);
+    // Soft off-white fog to blend particles smoothly into the new Apple background
+    scene.fog = new THREE.FogExp2(0xfbfbfd, 0.012);
 
     // Camera
     const camera = new THREE.PerspectiveCamera(
@@ -25,42 +35,36 @@ function ThreeCanvas() {
 
     // WebGL Renderer
     const renderer = new THREE.WebGLRenderer({
-      antialias: true,
-      alpha: false, // Solid background
+      antialias: false, // Turn off antialiasing for maximum mobile performance (barely noticeable on high-dpi displays)
+      alpha: false,     // Solid background
       powerPreference: "high-performance"
     });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5)); // Cap pixel ratio at 1.5 for performance
     renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setClearColor(0xffffff, 1); // Pure white background
-    containerRef.current.appendChild(renderer.domElement);
+    renderer.setClearColor(0xfbfbfd, 1); // Match Apple soft off-white
+    currentContainer.appendChild(renderer.domElement);
 
     // --- Create Custom Grayscale Particle Texture ---
-    // Creates a soft-edged circle canvas texture with charcoal cores
     const createParticleTexture = () => {
       const canvas = document.createElement('canvas');
-      canvas.width = 32;
-      canvas.height = 32;
+      canvas.width = 16; // Reduced texture canvas size from 32 to 16 for better GPU texture memory mapping
+      canvas.height = 16;
       const ctx = canvas.getContext('2d');
       if (ctx) {
-        const gradient = ctx.createRadialGradient(16, 16, 0, 16, 16, 16);
-        gradient.addColorStop(0, 'rgba(18, 18, 18, 0.95)');    // Obsidian/charcoal center
-        gradient.addColorStop(0.2, 'rgba(80, 80, 80, 0.6)');    // Soft grey body
-        gradient.addColorStop(0.6, 'rgba(180, 180, 180, 0.15)'); // Outer fade glow
+        const gradient = ctx.createRadialGradient(8, 8, 0, 8, 8, 8);
+        gradient.addColorStop(0, 'rgba(18, 18, 18, 0.95)');    
+        gradient.addColorStop(0.2, 'rgba(80, 80, 80, 0.6)');    
+        gradient.addColorStop(0.6, 'rgba(180, 180, 180, 0.15)'); 
         gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
         ctx.fillStyle = gradient;
-        ctx.fillRect(0, 0, 32, 32);
+        ctx.fillRect(0, 0, 16, 16);
       }
       return new THREE.CanvasTexture(canvas);
     };
 
     const particleTexture = createParticleTexture();
 
-    // --- Elegant 3D Grid Wave ---
-    const AMOUNTX = 70;
-    const AMOUNTY = 70;
-    const SEPARATION = 2.4;
-    const numParticles = AMOUNTX * AMOUNTY;
-
+    // --- Elegant 3D Grid Wave Data ---
     const positions = new Float32Array(numParticles * 3);
     const colors = new Float32Array(numParticles * 3);
 
@@ -100,13 +104,13 @@ function ThreeCanvas() {
     geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
     geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
-    // Points Material using standard blending for white background (Multiply/Normal)
+    // Points Material using standard blending for off-white background
     const material = new THREE.PointsMaterial({
-      size: 1.5,
+      size: isMobile ? 2.2 : 1.5,
       map: particleTexture,
       vertexColors: true,
       transparent: true,
-      blending: THREE.NormalBlending, // Crucial for dark particles on white screen
+      blending: THREE.NormalBlending,
       depthWrite: false,
       opacity: 0.8
     });
@@ -132,10 +136,10 @@ function ThreeCanvas() {
       targetScrollY = window.scrollY;
     };
 
-    window.addEventListener('pointermove', onPointerMove);
-    window.addEventListener('scroll', onScroll);
+    window.addEventListener('pointermove', onPointerMove, { passive: true });
+    window.addEventListener('scroll', onScroll, { passive: true });
 
-    // --- Render Loop ---
+    // --- High-Performance Render Loop ---
     let count = 0;
     let animationFrameId;
 
@@ -147,7 +151,7 @@ function ThreeCanvas() {
       mouseY += (targetMouseY - mouseY) * 0.04;
       scrollY += (targetScrollY - scrollY) * 0.04;
 
-      count += 0.008; // Slower, more elegant wave speed
+      count += 0.008; // Elegant wave speed
 
       const positionAttr = geometry.attributes.position;
       const array = positionAttr.array;
@@ -156,22 +160,32 @@ function ThreeCanvas() {
       const mouseXWorld = mouseX * 60;
       const mouseZWorld = -mouseY * 60;
 
+      // 30^2 is 900. Used for fast squared distance calculations (skips Math.sqrt globally)
+      const maxDistSq = 900; 
+
       for (let ix = 0; ix < AMOUNTX; ix++) {
+        const sinWaveX = Math.sin((ix + count * 3) * 0.15) * 3;
+        
         for (let iy = 0; iy < AMOUNTY; iy++) {
           const x = array[idx];
           const z = array[idx + 2];
 
-          // Compute ripple distance from mouse project
+          // Compute squared ripple distance from mouse to skip Math.sqrt calculation
           const dx = x - mouseXWorld;
           const dz = z - mouseZWorld;
-          const dist = Math.sqrt(dx * dx + dz * dz);
+          const distSq = dx * dx + dz * dz;
           
-          const rippleStrength = Math.max(0, 30 - dist) * 0.25;
-          const mouseRipple = Math.sin(dist * 0.25 - count * 4) * rippleStrength;
+          let mouseRipple = 0;
+          if (distSq < maxDistSq) {
+            // Only perform expensive square-root and sine calculations for points near the mouse
+            const dist = Math.sqrt(distSq);
+            const rippleStrength = (30 - dist) * 0.25;
+            mouseRipple = Math.sin(dist * 0.25 - count * 4) * rippleStrength;
+          }
 
-          // Compute y position
+          // Compute dynamic Y height
           array[idx + 1] = 
-            (Math.sin((ix + count * 3) * 0.15) * 3) +
+            sinWaveX +
             (Math.cos((iy + count * 2) * 0.15) * 3) + 
             mouseRipple;
 
@@ -199,7 +213,7 @@ function ThreeCanvas() {
       renderer.setSize(window.innerWidth, window.innerHeight);
     };
     
-    window.addEventListener('resize', handleResize);
+    window.addEventListener('resize', handleResize, { passive: true });
 
     // --- Cleanup ---
     return () => {
@@ -208,8 +222,8 @@ function ThreeCanvas() {
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', handleResize);
       
-      if (containerRef.current && renderer.domElement) {
-        containerRef.current.removeChild(renderer.domElement);
+      if (currentContainer && renderer.domElement) {
+        currentContainer.removeChild(renderer.domElement);
       }
 
       geometry.dispose();
@@ -232,7 +246,7 @@ function ThreeCanvas() {
         zIndex: 0,
         pointerEvents: 'none',
         overflow: 'hidden',
-        background: '#ffffff'
+        background: '#fbfbfd' // Match Apple soft off-white background
       }}
     />
   );
