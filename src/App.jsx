@@ -6,6 +6,7 @@ import BentoGrid from './components/BentoGrid';
 import SaaSPreview from './components/SaaSPreview';
 
 function App() {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [activeFaq, setActiveFaq] = useState(null);
@@ -23,7 +24,7 @@ function App() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!email) return;
+    if (!email || !name) return;
 
     setIsSubmitting(true);
     setErrorMsg('');
@@ -38,20 +39,18 @@ function App() {
 
     try {
       // Using 'no-cors' mode with URL-encoded parameters is the most bulletproof way to submit to Google Sheets
-      // It avoids browser CORS preflight & redirection issues while successfully executing the script.
       await fetch(scriptUrl, {
         method: 'POST',
         mode: 'no-cors',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: new URLSearchParams({ email: email }).toString(),
+        body: new URLSearchParams({ email: email, name: name }).toString(),
       });
 
-      // Under 'no-cors', the response is opaque (meaning we cannot inspect its status or body),
-      // but if the fetch completes without throwing a network error, the email has been registered successfully.
       setSubmitted(true);
       setEmail('');
+      setName('');
     } catch (error) {
       console.error('Waitlist submission error:', error);
       setErrorMsg('Connection failed. Please check your network or try again.');
@@ -152,8 +151,18 @@ function App() {
                 <>
                   <form className="waitlist-form" onSubmit={handleSubmit}>
                     <input 
+                      type="text" 
+                      placeholder="Your name" 
+                      className="waitlist-input"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      disabled={isSubmitting}
+                      required
+                    />
+                    <div className="waitlist-separator"></div>
+                    <input 
                       type="email" 
-                      placeholder="Enter your work email" 
+                      placeholder="Work email" 
                       className="waitlist-input"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
