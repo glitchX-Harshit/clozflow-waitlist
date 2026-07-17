@@ -110,7 +110,7 @@ function App() {
             <span>Clozflow</span>
           </a>
           <div className="nav-links">
-            <a href="mailto:hello@clozflow.com" className="nav-link contact-btn">Contact</a>
+            <a href="mailto:clozflow.ai@gmail.com" className="nav-link contact-btn">Contact</a>
           </div>
         </nav>
 
@@ -211,7 +211,7 @@ function App() {
               <p className="faq-side-desc">
                 Can't find what you are looking for? Reach out to our founding team directly for partnership or beta questions.
               </p>
-              <a href="mailto:hello@clozflow.com" className="faq-contact-link">
+              <a href="mailto:clozflow.ai@gmail.com" className="faq-contact-link">
                 Ask a custom question <ArrowRight size={14} />
               </a>
             </div>
@@ -305,7 +305,7 @@ function App() {
               <div className="footer-col contact-col">
                 <h4>Contact</h4>
                 <ul>
-                  <li><a href="mailto:hello@clozflow.com">hello@clozflow.com</a></li>
+                  <li><a href="mailto:clozflow.ai@gmail.com">clozflow.ai@gmail.com</a></li>
                   <li><span className="local-time-label">Global Office</span></li>
                   <li><span className="time-display">UTC/GMT +5:30</span></li>
                 </ul>
