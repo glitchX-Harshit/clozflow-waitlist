@@ -143,10 +143,23 @@ function App() {
             {/* Elegant Form Form */}
             <motion.div variants={fadeUpVariant} className="waitlist-form-container">
               {submitted ? (
-                <div className="waitlist-success">
-                  <Check size={18} strokeWidth={2.5} />
-                  <span>Request received. Keep an eye on your inbox.</span>
-                </div>
+                <motion.div 
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                  className="luxury-success-card"
+                >
+                  <div className="success-icon-wrapper">
+                    <Check size={28} strokeWidth={2} />
+                  </div>
+                  <h3 className="success-title">You're on the list.</h3>
+                  <p className="success-desc">
+                    Your invitation request has been logged. We release access slots weekly to ensure quality onboarding. Keep an eye on your inbox.
+                  </p>
+                  <div className="success-footer-badge">
+                    <span>Priority Beta Tier</span>
+                  </div>
+                </motion.div>
               ) : (
                 <>
                   <form className="waitlist-form" onSubmit={handleSubmit}>

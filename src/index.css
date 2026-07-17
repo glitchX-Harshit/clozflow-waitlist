@@ -353,22 +353,62 @@ body {
   transform: translateY(0);
 }
 
-/* Success status */
-.waitlist-success {
+/* Awwwards-Grade Luxury Success Card */
+.luxury-success-card {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  gap: 0.6rem;
+  justify-content: center;
+  text-align: center;
+  padding: 3rem 2.2rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 2rem;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.02), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(30px);
   width: 100%;
-  padding: 1.1rem;
-  background: rgba(0, 0, 0, 0.02);
-  border: 1px solid var(--text-main);
-  border-radius: 3rem;
-  color: var(--text-main);
+}
+
+.success-icon-wrapper {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: rgba(22, 163, 74, 0.06);
+  border: 1px solid rgba(22, 163, 74, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  color: #16a34a;
+}
+
+.success-title {
+  font-size: 1.6rem;
   font-weight: 500;
-  font-size: 0.95rem;
-  backdrop-filter: blur(12px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.02);
+  letter-spacing: -0.02em;
+  color: var(--text-main);
+  margin-bottom: 0.8rem;
+  font-family: var(--font-sans);
+}
+
+.success-desc {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+  max-width: 380px;
+  margin-bottom: 1.8rem;
+}
+
+.success-footer-badge {
+  background: transparent;
+  border: 1px solid var(--accent-cherry);
+  padding: 0.4rem 1rem;
+  border-radius: 2rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--accent-cherry);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
 }
 
 /* Error status */
