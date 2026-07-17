@@ -25,6 +25,7 @@
   padding: 0;
   box-sizing: border-box;
   user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
@@ -1833,11 +1834,15 @@ body {
   text-align: center;
   letter-spacing: -0.04em;
   line-height: 0.8;
-  color: rgba(0, 0, 0, 0.02);
   margin-top: 4rem;
   user-select: none;
   pointer-events: none;
   font-family: var(--font-sans);
+  background: linear-gradient(4deg, #C2DCFB 0%, #8E74E2 35%, #E23E6E 70%, #4856E3 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  opacity: 1;
 }
 
 /* Responsive Footer */
