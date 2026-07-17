@@ -312,7 +312,7 @@ function SaaSPreview() {
                     <div className={`canvas-node-core ${activeNode === 'engine' ? 'active-core' : ''}`}>
                       <div className="core-glow" />
                       <Cpu size={24} className="core-icon-spin" />
-                      <span className="core-label">Clozflow Sales OS</span>
+                      <span className="core-label">Clozflow</span>
                     </div>
                   </div>
 
