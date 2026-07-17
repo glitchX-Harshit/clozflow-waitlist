@@ -75,19 +75,39 @@ function App() {
   const faqs = [
     {
       q: "What is Clozflow?",
-      a: "Clozflow is an AI platform that helps businesses and freelancers get more clients. It finds potential customers, researches them, writes personalized outreach messages, helps you reply during sales conversations with a real-time AI assistant, and reminds you what to do next so you can close more deals."
+      a: "Clozflow is an AI Sales Operating System that helps businesses find qualified leads, generate personalized outreach, assist during live sales conversations, and automate follow-ups—all in one platform."
     },
     {
-      q: "When will I receive access?",
-      a: "We are onboarding businesses and freelancers in weekly cohorts. Early invite requests are prioritized to join our private beta starting this quarter."
+      q: "Will Clozflow work autonomously?",
+      a: "Yes. With Pearl, Clozflow's autonomous AI sales agent, you can deploy an AI that researches prospects, reaches out across supported channels, follows up intelligently, and delivers a daily summary while you focus on running your business."
     },
     {
-      q: "Do I still need other tools for outreach or CRM?",
-      a: "No. Instead of using multiple tools for lead generation, outreach, CRM, and sales assistance, Clozflow brings everything together in one platform."
+      q: "What is Pearl?",
+      a: "Pearl is your autonomous AI sales agent. Give it a goal, and it continuously researches prospects, starts conversations, qualifies leads, and keeps you updated with everything it accomplishes."
     },
     {
-      q: "Will it work autonomously?",
-      a: "Yes. In the future, you'll also be able to deploy an AI Sales Agent that works on your behalf—finding qualified leads, starting conversations, following up, and delivering a daily summary of interested prospects directly to you."
+      q: "Which platforms does Clozflow support?",
+      a: "Clozflow is designed to work across popular sales and communication channels, including email and supported messaging platforms, with more integrations being added over time."
+    },
+    {
+      q: "Can Clozflow help during live sales calls?",
+      a: "Absolutely. Clozflow acts as a real-time AI sales assistant, providing context-aware suggestions, objection handling, and next-best responses while you're on calls or chatting with prospects."
+    },
+    {
+      q: "Do I need a CRM?",
+      a: "No. Clozflow includes AI-powered CRM capabilities that automatically organize conversations, remember customer context, and recommend your next actions."
+    },
+    {
+      q: "Is my data secure?",
+      a: "Yes. Your data is encrypted and handled securely. We only access the information necessary to provide the features you've enabled."
+    },
+    {
+      q: "Who is Clozflow built for?",
+      a: "Clozflow is built for freelancers, agencies, consultants, founders, startups, and B2B sales teams that want to acquire more clients with less manual work."
+    },
+    {
+      q: "How much will Clozflow cost?",
+      a: "Pricing will be announced closer to launch. Waitlist members will receive early access benefits and introductory pricing."
     }
   ];
 
