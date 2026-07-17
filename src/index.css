@@ -1944,5 +1944,13 @@ body {
     justify-content: center;
     width: 100%;
   }
+  .footer-giant-text {
+    font-size: 17vw;
+    letter-spacing: -0.05em;
+    line-height: 0.75;
+    margin-top: 2.5rem;
+    clip-path: inset(0 0 20% 0);
+    margin-bottom: -2rem;
+  }
 }
 
